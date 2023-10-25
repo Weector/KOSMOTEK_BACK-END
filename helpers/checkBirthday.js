@@ -17,7 +17,7 @@ cron.schedule("0 0 * * *", async () => {
       birthdayMoment.date() === currentMoment.date() &&
       birthdayMoment.month() === currentMoment.month()
     ) {
-        await updateUser(user._id, { userDiscount: 30 });
+        await updateUser(user._id, { userDiscount: 15 });
 
     } else if (
       oneWeekAfterBirthday.date() === currentMoment.date() &&
