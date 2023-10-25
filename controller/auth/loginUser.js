@@ -6,7 +6,7 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await findUserBy({ email });
-  const { username, phoneNumber, userDiscount, deliveryAddress, avatar } = user;
+  const { firstname, secondname, phoneNumber, userDiscount, deliveryAddress } = user;
 
   if (!user || !bcrypt.compareSync(password, user.password))
     throw new Unauthorized("Email or password is wrong");
@@ -17,12 +17,12 @@ const loginUser = async (req, res) => {
   res.status(200).json({
     token,
     user: {
-      username,
+      firstname,
+      secondname,
       phoneNumber,
       deliveryAddress,
       email,
       userDiscount,
-      avatar,
     },
   });
 };

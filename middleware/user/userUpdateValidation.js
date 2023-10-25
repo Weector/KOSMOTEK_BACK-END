@@ -8,7 +8,8 @@ module.exports = {
         .regex(/[0-9a-zA-Z]*\d[0-9a-zA-Z]*/)
         .min(8),
       email: Joi.string().email({ maxDomainSegments: 2 }),
-      username: Joi.string().min(3).max(30),
+      firstname: Joi.string().min(3).max(30),
+      secondname: Joi.string().min(3).max(30),
       phoneNumber: Joi.string(),
       deliveryAddress: Joi.string(),
       userDiscount: Joi.number(),

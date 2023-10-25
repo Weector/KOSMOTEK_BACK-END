@@ -3,12 +3,12 @@ const { findUserBy, regUser, createToken, login } = require("../../services/auth
 
 
 const registerUser = async (req, res) => {
-  const { username, phoneNumber, deliveryAddress, email, password } = req.body;
+  const { firstname, secondname, phoneNumber, deliveryAddress, email, password } = req.body;
 
   const user = await findUserBy({ email });
   if (user) throw new ConflictError({ message: "Email in use" });
 
-  const inRegUser = await regUser({ username, phoneNumber, deliveryAddress, email, password });
+  const inRegUser = await regUser({ firstname, secondname, phoneNumber, deliveryAddress, email, password });
 
   const token = await createToken(inRegUser);
   const logUser = await login(inRegUser, token);
@@ -16,12 +16,12 @@ const registerUser = async (req, res) => {
   res.status(201).json({
     token,
     user: {
-      username,
+      firstname,
+      secondname,
       phoneNumber,
       deliveryAddress,
       email,
       userDiscount: logUser.userDiscount,
-      avatar: logUser.avatar,
     },
   });
 };

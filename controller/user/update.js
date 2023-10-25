@@ -11,24 +11,24 @@ const update = async (req, res) => {
   if (!user) throw new NotFoundError("User not found");
 
   const {
-    username,
+    firstname,
+    secondname,
     email,
     phoneNumber,
     userDiscount,
     deliveryAddress,
-    avatar,
   } = user;
 
   res.json({
     status: "success",
     message: "User updated",
     user: {
-      username,
+      firstname,
+      secondname,
       email,
       phoneNumber,
       userDiscount,
       deliveryAddress,
-      avatar,
     },
   });
 };
