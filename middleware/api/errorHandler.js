@@ -1,6 +1,6 @@
 const { PersonalError } = require("../../helpers/errors")
 
-const errorHandler = (error, req, res, next) => {
+const errorHandler = (error, req, res) => {
     if (error instanceof PersonalError) {
         return res.status(error.status).json({ message: error.message })
     }
