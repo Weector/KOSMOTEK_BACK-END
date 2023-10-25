@@ -1,6 +1,8 @@
 const Joi = require("joi");
 const { ValidationError } = require("../../helpers/errors");
 
+
+//....................validation when updating the user....................
 module.exports = {
   userUpdateValid: (req, res, next) => {
     const schema = Joi.object({
@@ -10,6 +12,7 @@ module.exports = {
       email: Joi.string().email({ maxDomainSegments: 2 }),
       firstname: Joi.string().min(3).max(30),
       secondname: Joi.string().min(3).max(30),
+      birthday: Joi.string(),
       phoneNumber: Joi.string(),
       deliveryAddress: Joi.string(),
       userDiscount: Joi.number(),
@@ -17,8 +20,8 @@ module.exports = {
 
     const validationResult = schema.validate(req.body);
     if (validationResult.error) {
-      next(new ValidationError(validationResult.error.details));
+      next(new ValidationError(validationResult.error.details[0].message));
     }
     next();
-  }
-}
+  },
+};

@@ -1,7 +1,8 @@
+require("./helpers/checkBirthday");
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-const { errorHandler } = require("./middleware");
+const { errorHandler } = require("./middleware/");
 const { api: ctrl } = require("./routes");
 
 const app = express();

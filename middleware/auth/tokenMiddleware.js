@@ -3,7 +3,8 @@ const { User } = require("../../models");
 const { Unauthorized } = require("../../helpers/errors");
 
 
-const authMiddleware = async (req, res, next) => {
+//...............user authorization check...............
+const tokenMiddleware = async (req, res, next) => {
   const { authorization = "" } = req.headers;
   const [bearer, token] = authorization.split(" ");
   try {
@@ -22,6 +23,4 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  authMiddleware,
-};
+module.exports = { tokenMiddleware };

@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const path = require('path');
-const app = require('./app');
+const mongoose = require("mongoose");
+const path = require("path");
+const app = require("./app");
 
 const configPath = path.join(__dirname, ".env");
 require("dotenv").config({ path: configPath });
@@ -11,7 +11,9 @@ mongoose
     useNewUrlParser: true,
   })
   .then(() =>
-    app.listen(process.env.PORT, () => console.log("Database connection successful"))
+    app.listen(process.env.PORT, () =>
+      console.log("Database connection successful")
+    )
   )
   .catch((error) => {
     console.log(error.message);
