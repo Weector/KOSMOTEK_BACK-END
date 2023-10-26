@@ -14,6 +14,7 @@ app.use(express.json());
 
 app.use("/auth", ctrl.authRouter);
 app.use("/user", ctrl.userRouter);
+app.use("/products", ctrl.productsRouter);
 
 app.use(errorHandler);
 
