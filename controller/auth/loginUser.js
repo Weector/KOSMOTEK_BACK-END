@@ -1,7 +1,10 @@
 const bcrypt = require("bcrypt");
 const { Unauthorized } = require("../../helpers/errors");
-const { findUserBy, createToken, login } = require("../../services/auth");
+const { findUserBy, login } = require("../../services/auth");
+const { createToken } = require("../../helpers/createToken");
 
+
+//....................login user......................................................
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 

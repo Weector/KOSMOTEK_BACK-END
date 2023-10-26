@@ -5,11 +5,11 @@ const userSchema = Schema(
   {
     firstname: {
       type: String,
-      required: [true],
+      required: [true, "Set first name"],
     },
     secondname: {
       type: String,
-      required: [true],
+      required: [true, "Set second name"],
     },
     email: {
       type: String,
@@ -24,6 +24,10 @@ const userSchema = Schema(
       type: String,
       required: [true, "Set phone number"],
       unique: true,
+    },
+    birthday: {
+      type: String,
+      default: null,
     },
     userDiscount: {
       type: Number,
@@ -41,13 +45,14 @@ const userSchema = Schema(
   { versionKey: false }
 );
 
+//...............the new user's password is hashed.................
 userSchema.pre("save", async function (next) {
   if (this.isNew) {
     this.password = await bcrypt.hash(this.password, 10);
   }
   next();
 });
-
+//...............the password is hashed after it is updated.................
 userSchema.pre("findOneAndUpdate", async function (next) {
   const update = this.getUpdate();
   if (update.password) {

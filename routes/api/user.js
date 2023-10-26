@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const { user: ctrl } = require("../../controller");
-const { userUpdateValid, ctrlWrapper, authMiddleware } = require("../../middleware");
+const { ctrlWrapper, tokenMiddleware } = require("../../middleware");
+const { userUpdateValid } = require("../../validation");
 
-router.use(authMiddleware);
+router.use(tokenMiddleware);
 
-router.delete("/logout", ctrlWrapper(ctrl.logout));
 router.patch("/update", userUpdateValid, ctrlWrapper(ctrl.update));
+router.delete("/logout", ctrlWrapper(ctrl.logout));
+
 
 module.exports = router;

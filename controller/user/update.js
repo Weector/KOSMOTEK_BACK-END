@@ -1,6 +1,8 @@
 const { WrongParamsError, NotFoundError } = require("../../helpers/errors");
 const { updateUser } = require("../../services/user");
 
+
+//......................updating various user parameters.........................
 const update = async (req, res) => {
   const { id } = req.user;
   const bodyParam = req.body;
