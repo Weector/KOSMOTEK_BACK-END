@@ -7,7 +7,7 @@ const update = async (req, res) => {
   const { id } = req.user;
   const bodyParam = req.body;
 
-  if (!bodyParam) throw new WrongParamsError({ message: `Missing field` });
+  if (!bodyParam) throw new WrongParamsError(`Missing field`);
 
   const user = await updateUser(id, bodyParam);
   if (!user) throw new NotFoundError("User not found");
@@ -16,6 +16,7 @@ const update = async (req, res) => {
     firstname,
     secondname,
     email,
+    birthday,
     phoneNumber,
     userDiscount,
     deliveryAddress,
@@ -28,6 +29,7 @@ const update = async (req, res) => {
       firstname,
       secondname,
       email,
+      birthday,
       phoneNumber,
       userDiscount,
       deliveryAddress,

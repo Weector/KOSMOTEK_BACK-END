@@ -1,6 +1,5 @@
 const { ConflictError } = require("../../helpers/errors");
 const { findUserBy, regUser, login } = require("../../services/auth");
-const { createToken } = require("../../helpers/createToken");
 
 
 //......................register user.............................................................
@@ -8,15 +7,13 @@ const registerUser = async (req, res) => {
   const { firstname, secondname, birthday, phoneNumber, email, password } = req.body;
 
   const user = await findUserBy({ email });
-  if (user) throw new ConflictError({ message: "Email in use" });
+  if (user) throw new ConflictError( "Email in use" );
 
   const inRegUser = await regUser({ firstname, secondname, birthday, phoneNumber, email, password });
-
-  const token = await createToken(inRegUser);
-  const logUser = await login(inRegUser, token);
+  const logUser = await login(inRegUser);
 
   res.status(201).json({
-    token,
+    token: logUser.token,
     user: {
       firstname,
       secondname,

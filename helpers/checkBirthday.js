@@ -1,29 +1,30 @@
 const cron = require("node-cron");
 const moment = require("moment");
+const { User } = require("../models");
 const { updateUser } = require("../services/user");
-const { User } = require("../models/user");
 
 
 //...............birthday check for discount calculation......................
-cron.schedule("0 0 * * *", async () => {
+cron.schedule("0 0 * * * ", async () => {
   const users = await User.find();
+  const currentData = moment();
 
   for (const user of users) {
-    const birthdayMoment = moment(user.birthday, "DD-MM-YYYY");
-    const currentMoment = moment();
-    const oneWeekAfterBirthday = moment(birthdayMoment).add(7, "days");
+    const birthdayData = moment(user.birthday, "DD-MM-YYYY");
+    const oneMonthBeforeBirthday = moment(birthdayData).subtract(1, "months");
+    const oneDayAfterBirthday = moment(birthdayData).add(1, "days");
+    
 
     if (
-      birthdayMoment.date() === currentMoment.date() &&
-      birthdayMoment.month() === currentMoment.month()
+      oneMonthBeforeBirthday.date() === currentData.date() &&
+      oneMonthBeforeBirthday.month() === currentData.month()
     ) {
-        await updateUser(user._id, { userDiscount: 15 });
-
+      await updateUser(user._id, { userDiscount: 0.15 });
     } else if (
-      oneWeekAfterBirthday.date() === currentMoment.date() &&
-      oneWeekAfterBirthday.month() === currentMoment.month()
+      oneDayAfterBirthday.date() === currentData.date() &&
+      oneDayAfterBirthday.month() === currentData.month()
     ) {
-        await updateUser(user._id, { userDiscount: 0 });
+      await updateUser(user._id, { userDiscount: 0 });
     }
   }
 });

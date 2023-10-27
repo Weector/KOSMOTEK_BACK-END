@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const { Unauthorized } = require("../../helpers/errors");
 const { findUserBy, login } = require("../../services/auth");
-const { createToken } = require("../../helpers/createToken");
 
 
 //....................login user......................................................
@@ -14,11 +13,10 @@ const loginUser = async (req, res) => {
   if (!user || !bcrypt.compareSync(password, user.password))
     throw new Unauthorized("Email or password is wrong");
 
-  const token = await createToken(user);
-  await login(user, token);
+  const logUser = await login(user);
 
   res.status(200).json({
-    token,
+    token: logUser.token,
     user: {
       firstname,
       secondname,
