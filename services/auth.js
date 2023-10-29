@@ -1,4 +1,5 @@
-const { User } = require("../models/user");
+const { User } = require("../models");
+const { createToken } = require("../helpers/createToken");
 
 
 //..............find user in the database....................
@@ -12,9 +13,9 @@ const regUser = async (body) => {
 };
 
 //..............login user in the database...................
-const login = async ({ _id }, token) => {
-  return await User.findByIdAndUpdate(_id, { token });
+const login = async ({ _id }) => {
+  const token = await createToken(_id);
+  return await User.findByIdAndUpdate(_id, { token }, { new: true });
 };
-
 
 module.exports = { findUserBy, regUser, login };

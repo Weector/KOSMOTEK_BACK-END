@@ -41,12 +41,20 @@ class Unauthorized extends PersonalError {
         this.message = message;
     }
 }
+class Forbidden extends PersonalError {
+  constructor(message) {
+    super(message);
+    this.status = 403;
+    this.message = message;
+  }
+}
 
 module.exports = {
-    PersonalError,
-    ValidationError,
-    WrongParamsError,
-    NotFoundError,
-    ConflictError,
-    Unauthorized
-}
+  PersonalError,
+  ValidationError,
+  WrongParamsError,
+  NotFoundError,
+  ConflictError,
+  Unauthorized,
+  Forbidden,
+};
