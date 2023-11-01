@@ -25,8 +25,6 @@ const forgotPassword = async (req, res) => {
   await sendEmail(mail);
 
   res.status(201).json({
-    status: "success",
-    code: 201,
     message: `Done! We send password reset link to ${email}`,
   });
 };

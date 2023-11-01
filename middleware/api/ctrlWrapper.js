@@ -9,6 +9,4 @@ const ctrlWrapper = (ctrl) => {
   };
 };
 
-module.exports = {
-  ctrlWrapper,
-};
+module.exports = { ctrlWrapper };

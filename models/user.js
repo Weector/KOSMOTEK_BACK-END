@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
+const { passwordMW } = require("../middleware");
 
 const userSchema = Schema(
   {
@@ -45,21 +45,7 @@ const userSchema = Schema(
   { versionKey: false }
 );
 
-//...............the new user's password is hashed.................
-userSchema.pre("save", async function (next) {
-  if (this.isNew) {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
-  next();
-});
-//...............the password is hashed after it is updated.................
-userSchema.pre("findOneAndUpdate", async function (next) {
-  const update = this.getUpdate();
-  if (update.password) {
-    update.password = await bcrypt.hash(update.password, 10);
-  }
-  next();
-});
+passwordMW(userSchema);
 
 const User = model("user", userSchema);
 module.exports = { User };

@@ -23,8 +23,6 @@ const resetPassword = async (req, res) => {
   await updateUser(id, bodyParam);
 
   res.status(201).json({
-    status: "success",
-    code: 201,
     message: `New password created!`,
   });
 };
