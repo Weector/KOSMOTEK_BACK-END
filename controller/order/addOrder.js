@@ -1,6 +1,6 @@
 const {
   createOrder,
-  findOrderBy,
+  findNewOrder,
   updateOrder,
 } = require("../../services/order");
 
@@ -10,12 +10,11 @@ const addOrder = async (req, res) => {
   const userId = req.user.id;
   const bodyParam = req.body;
 
-  const order = await findOrderBy({ userId, orderStatus: "" });
+  const order = await findNewOrder(userId);
   let newOrder;
 
   if (!order) {
     newOrder = await createOrder({ userId, products: bodyParam });
-    
   } else {
     const { _id, products } = order;
 

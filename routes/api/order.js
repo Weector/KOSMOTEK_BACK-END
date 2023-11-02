@@ -7,7 +7,7 @@ const { ctrlWrapper, tokenMiddleware } = require("../../middleware");
 
 router.use(tokenMiddleware);
 
-router.get("/get-all", ctrlWrapper(ctrl.getOrders));
+router.get("/get-all", valid.getStatusOrder, ctrlWrapper(ctrl.getOrders));
 router.post("/create-new", valid.addOrder, ctrlWrapper(ctrl.addOrder));
 
 module.exports = router;

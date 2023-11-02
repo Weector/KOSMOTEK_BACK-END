@@ -57,8 +57,8 @@ const orderSchema = Schema(
     },
     orderStatus: {
       type: String,
-      enum: ["", "in progress", "sent", "delivered"],
-      default: "",
+      enum: ["in progress", "sent", "delivered"],
+     
     },
   },
   { versionKey: false }
