@@ -14,11 +14,10 @@ const getOrderJoiSchema = Joi.object({
 });
 
 const removeJoiSchema = Joi.object({
-  orderId: Joi.string().required(),
   productId: Joi.string().required(),
 });
 
-//.....................handling addOrder....................................
+//.....................handling validate order....................................
 const addOrder = validateBody(createOrderJoiSchema);
 const getStatusOrder = validateBody(getOrderJoiSchema);
 const remove = validateBody(removeJoiSchema);

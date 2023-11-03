@@ -3,8 +3,9 @@ const { deleteProductInOrder, updateOrder } = require("../../services/order");
 
 //................Remove product in order..........................
 const removeProduct = async (req, res) => {
-  const { orderId, productId } = req.body;
-
+  const { orderId } = req.params;
+  const { productId } = req.body;
+  
   const removeProduct = await deleteProductInOrder(orderId, productId);
 
   const order = await updateOrder(orderId, removeProduct);
