@@ -1,9 +1,9 @@
-// ...................Function for processing product data..........................
-const updateOrder = async (products) => {
+// ...................Function for processing order products data...................
+const updateOrder = async (update) => {
   const { Product } = require("../../models");
 
   const populatedProducts = await Promise.all(
-    products.map(async (product) => {
+    update.products.map(async (product) => {
       const populatedProduct = await Product.findById(product.productId).select(
         "productName purchasePrice images"
       );
@@ -12,14 +12,9 @@ const updateOrder = async (products) => {
       product.productName = populatedProduct.productName;
       product.sum = populatedProduct.purchasePrice * product.quantity;
       product.image = populatedProduct.images.main;
-      
+
       return product;
     })
-  );
-
-  const totalPrice = populatedProducts.reduce(
-    (total, product) => total + product.sum,
-    0
   );
 
   const productsQuantity = populatedProducts.reduce(
@@ -27,28 +22,29 @@ const updateOrder = async (products) => {
     0
   );
 
-  return { populatedProducts, totalPrice, productsQuantity };
+  const totalPrice = populatedProducts.reduce(
+    (total, product) => total + product.sum,
+    0
+  );
+
+  update.products = populatedProducts;
+  update.productsQuantity = productsQuantity;
+  update.totalPrice = totalPrice;
 };
 
 // .........................Middleware for update...................................
 const orderMW = (schema) => {
   schema.pre("save", async function (next) {
-    const { populatedProducts, totalPrice } = await updateOrder(this.products);
+    await updateOrder(this);
 
-    this.products = populatedProducts;
-    this.totalPrice = totalPrice;
     next();
   });
 
   schema.pre("findOneAndUpdate", async function (next) {
     const update = this.getUpdate();
 
-    const { populatedProducts, totalPrice, productsQuantity } =
-      await updateOrder(update.products);
+    if (update.products) await updateOrder(update);
 
-    update.products = populatedProducts;
-    update.totalPrice = totalPrice;
-    update.productsQuantity = productsQuantity;
     next();
   });
 };

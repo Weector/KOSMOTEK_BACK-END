@@ -4,10 +4,10 @@ const { orderJoiSchemas: valid } = require("../../schemas");
 const { order: ctrl } = require("../../controller");
 const { ctrlWrapper, tokenMiddleware } = require("../../middleware");
 
-
 router.use(tokenMiddleware);
 
 router.get("/get-all", valid.getStatusOrder, ctrlWrapper(ctrl.getOrders));
 router.post("/create-new", valid.addOrder, ctrlWrapper(ctrl.addOrder));
+router.delete("/remove-product", valid.remove, ctrlWrapper(ctrl.removeProduct));
 
 module.exports = router;

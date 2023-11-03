@@ -13,6 +13,7 @@ const orderSchema = Schema(
         productId: {
           type: SchemaTypes.ObjectId,
           ref: "product",
+          required: [true],
         },
         productName: {
           type: String,
@@ -22,18 +23,18 @@ const orderSchema = Schema(
         },
         volume: {
           type: String,
-          default: "",
+          default: null,
         },
         shadeName: {
           type: String,
-          default: "",
+          default: null,
         },
         price: {
           type: Number,
         },
         quantity: {
           type: Number,
-          default: 1,
+          required: [true, "Quantity required"],
         },
         sum: {
           type: Number,
@@ -42,11 +43,9 @@ const orderSchema = Schema(
     ],
     productsQuantity: {
       type: Number,
-      default: 1,
     },
     totalPrice: {
       type: Number,
-      default: 0,
     },
     orderData: {
       type: Date,
@@ -57,8 +56,8 @@ const orderSchema = Schema(
     },
     orderStatus: {
       type: String,
-      enum: ["in progress", "sent", "delivered"],
-     
+      enum: [null, "in progress", "sent", "delivered"],
+      default: null
     },
   },
   { versionKey: false }

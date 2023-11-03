@@ -1,6 +1,8 @@
+const { NotFoundError } = require("../../helpers/errors");
 const { findOrders } = require("../../services/order");
 
-//................Get all user orders..........................
+
+//................Get all user orders by userId or by orderStatus ..........................
 const getOrders = async (req, res) => {
   const userId = req.user.id;
   const { orderStatus } = req.body;
@@ -8,9 +10,11 @@ const getOrders = async (req, res) => {
   const searchCriteria = { userId };
   if (orderStatus) searchCriteria.orderStatus = orderStatus;
 
-  const allOrders = await findOrders(searchCriteria);
+  const orders = await findOrders(searchCriteria);
 
-  res.status(200).json({ allOrders });
+  if (!orders) throw new NotFoundError(`You don't have any orders yet`);
+
+  res.status(200).json(orders);
 };
 
 module.exports = { getOrders };
