@@ -1,9 +1,11 @@
-const { errorHandler } = require("./api/errorHandler");
-const { ctrlWrapper } = require("./api/ctrlWrapper");
-const { tokenMiddleware } = require("./auth/tokenMiddleware");
+const { errorHandler, ctrlWrapper } = require("./api/");
+const { tokenMiddleware, passwordMW } = require("./user");
+const { orderMW } = require("./order/schemaMiddleware");
 
 module.exports = {
   errorHandler,
   ctrlWrapper,
   tokenMiddleware,
+  passwordMW,
+  orderMW,
 };
