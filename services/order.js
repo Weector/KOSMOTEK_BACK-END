@@ -4,8 +4,8 @@ const findOrders = async (data) => {
   return await Order.find(data);
 };
 
-const findNewOrder = async (userId) => {
-  return await Order.findOne({ userId, orderStatus: undefined });
+const findOneOrder = async (data) => {
+  return await Order.findOne(data);
 };
 
 const createOrder = async (body) => {
@@ -16,4 +16,18 @@ const updateOrder = async (id, body) => {
   return await Order.findByIdAndUpdate(id, body, { new: true });
 };
 
-module.exports = { findOrders, createOrder, updateOrder, findNewOrder };
+const deleteProductInOrder = async (_id, productId) => {
+  return await Order.findByIdAndUpdate(
+    _id,
+    { $pull: { products: { productId } } },
+    { new: true }
+  );
+};
+
+module.exports = {
+  findOrders,
+  createOrder,
+  updateOrder,
+  findOneOrder,
+  deleteProductInOrder,
+};
