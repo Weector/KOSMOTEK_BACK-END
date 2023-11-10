@@ -1,3 +1,4 @@
+const { OrderInBaselinker } = require("../../baseLinker/order");
 const { NotFoundError } = require("../../helpers/errors");
 const { findOrders } = require("../../services/order");
 
@@ -14,7 +15,9 @@ const getOrders = async (req, res) => {
 
   if (!orders) throw new NotFoundError(`You don't have any orders yet`);
 
-  res.status(200).json(orders);
+ const ex = await OrderInBaselinker()
+
+  res.status(200).json(ex);
 };
 
 module.exports = { getOrders };
