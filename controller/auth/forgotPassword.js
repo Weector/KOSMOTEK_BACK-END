@@ -19,7 +19,7 @@ const forgotPassword = async (req, res) => {
   const mail = {
     to: email,
     subject: "PASSWORD RECOVERY",
-    html: resetPasswordMarkup(link),
+    html: resetPasswordMarkup(user.firstname, link),
   };
 
   await sendEmail(mail);
