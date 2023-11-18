@@ -6,6 +6,7 @@ const { userJoiSchemas: valid } = require("../../schemas");
 
 router.use(tokenMiddleware);
 
+router.get("/current", ctrlWrapper(ctrl.currentUser));
 router.patch("/update", valid.userUpdate, ctrlWrapper(ctrl.update));
 router.delete("/logout", ctrlWrapper(ctrl.logout));
 

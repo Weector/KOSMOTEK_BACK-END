@@ -1,9 +1,8 @@
 const { findUserBy } = require("../../services/auth");
 const { NotFoundError } = require("../../helpers/errors");
-const { createResetPassToken } = require("../../helpers/createToken");
-const resetPasswordMarkup = require("../../helpers/resetPasswordMarkup");
+const { createResetPassToken } = require("../../helpers/tokenManagement");
 const { sendEmail } = require("../../helpers/sendEmail");
-
+const resetPasswordMarkup = require("../../helpers/resetPasswordMarkup");
 
 //....................sending a letter "forgot password" .............................
 const forgotPassword = async (req, res) => {

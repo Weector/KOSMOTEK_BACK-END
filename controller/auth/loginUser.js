@@ -1,16 +1,23 @@
-const bcrypt = require("bcrypt");
 const { Unauthorized } = require("../../helpers/errors");
 const { findUserBy, login } = require("../../services/auth");
-
+const { comparePasswords } = require("../../helpers/bcrypt");
 
 //....................login user......................................................
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await findUserBy({ email });
-  const { firstname, secondname, phoneNumber, userDiscount, deliveryAddress } = user;
+  const {
+    firstname,
+    secondname,
+    phoneNumber,
+    userDiscount,
+    deliveryAddress,
+    birthday,
+  } = user;
 
-  if (!user || !bcrypt.compareSync(password, user.password))
+  const passwordMatches = await comparePasswords(password, user.password);
+  if (!user || !passwordMatches)
     throw new Unauthorized("Email or password is wrong");
 
   const logUser = await login(user);
@@ -21,6 +28,7 @@ const loginUser = async (req, res) => {
       firstname,
       secondname,
       phoneNumber,
+      birthday,
       deliveryAddress,
       email,
       userDiscount,

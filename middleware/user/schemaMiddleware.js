@@ -1,6 +1,5 @@
-const bcrypt = require("bcrypt");
+const { hashPassword } = require("../../helpers/bcrypt");
 
-const hashPassword = async (password) => await bcrypt.hash(password, 10);
 
 const passwordMW = (schema) => {
   //...............the new user's password is hashed.................
