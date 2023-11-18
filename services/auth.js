@@ -1,6 +1,5 @@
 const { User } = require("../models");
-const { createToken } = require("../helpers/createToken");
-
+const { createToken } = require("../helpers/tokenManagement");
 
 //..............find user in the database....................
 const findUserBy = async (data) => {

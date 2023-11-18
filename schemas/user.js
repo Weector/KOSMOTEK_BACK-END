@@ -15,17 +15,20 @@ const authJoiSchema = Joi.object({
 
 //.....................user update scheme........................................
 const userJoiSchema = Joi.object({
-      password: Joi.string()
-        .regex(/[0-9a-zA-Z]*\d[0-9a-zA-Z]*/)
-        .min(8),
-      email: Joi.string().email({ maxDomainSegments: 2 }),
-      firstname: Joi.string().min(3).max(30),
-      secondname: Joi.string().min(3).max(30),
-      birthday: Joi.string(),
-      phoneNumber: Joi.string(),
-      deliveryAddress: Joi.string(),
-      userDiscount: Joi.number(),
-    });
+  oldPassword: Joi.string()
+    .regex(/[0-9a-zA-Z]*\d[0-9a-zA-Z]*/)
+    .min(8),
+  newPassword: Joi.string()
+    .regex(/[0-9a-zA-Z]*\d[0-9a-zA-Z]*/)
+    .min(8),
+  email: Joi.string().email({ maxDomainSegments: 2 }),
+  firstname: Joi.string().min(3).max(30),
+  secondname: Joi.string().min(3).max(30),
+  birthday: Joi.string(),
+  phoneNumber: Joi.string(),
+  deliveryAddress: Joi.string(),
+  userDiscount: Joi.number(),
+});
 
 
 //.....................handling registration.....................................
@@ -60,12 +63,19 @@ const password = validateBody(
   })
 );
 
+const refresh = validateBody(
+  Joi.object({
+    refreshToken: Joi.string().required(),
+  })
+);
+
 const userJoiSchemas = {
   register,
   login,
   email,
   password,
   userUpdate,
+  refresh,
 };
 
 module.exports = {

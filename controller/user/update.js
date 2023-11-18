@@ -1,15 +1,34 @@
-const { WrongParamsError, NotFoundError } = require("../../helpers/errors");
+const { comparePasswords } = require("../../helpers/bcrypt");
+const {
+  WrongParamsError,
+  NotFoundError,
+  Unauthorized,
+} = require("../../helpers/errors");
 const { updateUser } = require("../../services/user");
-
 
 //......................updating various user parameters.........................
 const update = async (req, res) => {
-  const { id } = req.user;
-  const bodyParam = req.body;
+  const { id, password } = req.user;
+  const bodyParams = req.body;
+  let user;
 
-  if (!bodyParam) throw new WrongParamsError(`Missing field`);
+  if (!bodyParams) throw new WrongParamsError(`Missing field`);
 
-  const user = await updateUser(id, bodyParam);
+  const { oldPassword, newPassword, ...otherParams } = bodyParams;
+
+  if (oldPassword || newPassword) {
+    const passwordMatches = await comparePasswords(oldPassword, password);
+
+    if (!passwordMatches) throw new Unauthorized("Invalid old password");
+
+    user = await updateUser(id, {
+      ...otherParams,
+      password: newPassword,
+    });
+  } else {
+    user = await updateUser(id, otherParams);
+  }
+
   if (!user) throw new NotFoundError("User not found");
 
   const {
