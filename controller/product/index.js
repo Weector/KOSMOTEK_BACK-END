@@ -1,11 +1,11 @@
 const { getAll } = require("./getAll");
 const { getById } = require("./getById");
-const { addProduct } = require("./addProduct");
 const { getNewOffers } = require("./getNewOffers");
+const { checkBL } = require("./checkBL");
 
 module.exports = {
   getAll,
   getById,
-  addProduct,
   getNewOffers,
+  checkBL,
 };

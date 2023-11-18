@@ -4,66 +4,57 @@ const { errorHandler } = require("../middleware");
 
 const productSchema = Schema(
   {
+    blProductId: {
+      type: String,
+      required: [true, "Set baselinker product_id"],
+    },
     productName: {
       type: String,
-      required: [true, "Set productName"],
+      required: [true, "Set baselinker name"],
     },
     quantity: {
       type: Number,
-      default: 0,
-    },
-    ean: String,
-    sku: String,
-    category: {
-      type: [Object],
-      required: [true, "Add product category"],
-      ref: "category",
-    },
-    brand: {
-      type: Object,
-      required: [true, "Add product brand"],
-      ref: "brand",
+      required: [true, "Set baselinker quantity"],
     },
     price: {
       type: Number,
-      required: [true, "Set price"],
+      required: [true, "Set baselinker price_brutto"],
     },
-    productDiscount: {
+    discountPrice: {
       type: Number,
-      default: 0,
+      required: [true, "Set baselinker price_wholesale_netto"],
     },
-    purchasePrice: {
-      type: Number,
-      default: function () {
-        return this.price;
-      },
-    },
-    taxRate: {
-      type: Number,
-      default: 0.23,
-    },
-    description: {
+    categoryId: {
       type: String,
-      required: [true, "Set description"],
+      required: [true, "Set baselinker category_id"],
+    },
+    brand: {
+      type: String,
+      required: [true, "Set baselinker man_name"],
+    },
+    images: {
+      type: [String],
+      required: [true, "Set baselinker images"],
     },
     attributes: {
       type: [Object],
-      required: [true, "Set attributeName and attributeValue"],
+      required: [true, "Set baselinker features"],
+    },
+    variants: {
+      type: Array,
+      required: [true, "Set baselinker variants"],
+    },
+    description: {
+      type: String,
+      required: [true, "Set baselinker description"],
+    },
+    descriptionExtra: {
+      type: Array,
+      required: [true, "Set baselinker description_extra"],
     },
     newOffer: {
       type: Boolean,
       default: false,
-    },
-    images: {
-      main: {
-        type: String,
-        required: [true, "Set main picture"],
-      },
-      extra: [String],
-    },
-    variants: {
-      type: [String],
-      default: null,
     },
     averageRating: {
       type: Number,
