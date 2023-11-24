@@ -8,6 +8,8 @@ const {
 const { createCategoriesToInsert } = require("./createCategoriesToInsert");
 const { createBrandsToInsert } = require("./createBrandsToInsert");
 
+const order = require("./order");
+
 module.exports = {
   makeBaselinkerRequest,
   getFullProductsDataFromBL,
@@ -16,4 +18,5 @@ module.exports = {
   getRequiredCategories,
   createCategoriesToInsert,
   createBrandsToInsert,
+  order,
 };
