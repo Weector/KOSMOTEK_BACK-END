@@ -1,9 +1,11 @@
 const { addOrder } = require("./addOrder");
-const { getOrders } = require("./getOrders");
+const { getUserOrders } = require("./getUserOrders");
 const { removeProduct } = require("./removeProduct");
+const { updateQuantity } = require("./updateQuantity");
 
 module.exports = {
   addOrder,
-  getOrders,
+  getUserOrders,
   removeProduct,
+  updateQuantity,
 };
