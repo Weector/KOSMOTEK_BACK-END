@@ -1,16 +1,16 @@
-const { deleteProductInOrder, updateOrder } = require("../../services/order");
-
+const { order: ctrl } = require("../../baseLinker");
 
 //................Remove product in order..........................
 const removeProduct = async (req, res) => {
-  const { orderId } = req.params;
-  const { productId } = req.body;
-  
-  const removeProduct = await deleteProductInOrder(orderId, productId);
+  const { order_id } = req.params;
+  const { order_product_id } = req.body;
 
-  const order = await updateOrder(orderId, removeProduct);
+  const deleteProduct = await ctrl.deleteOrderProduct({
+    order_id,
+    order_product_id,
+  });
 
-  res.status(200).json(order);
+  res.status(200).json(deleteProduct);
 };
 
 module.exports = { removeProduct };

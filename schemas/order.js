@@ -3,7 +3,7 @@ const { validateBody } = require("../helpers/validateBody");
 
 //.....................order scheme.........................................
 const createOrderJoiSchema = Joi.object({
-  order_id: Joi.string(),
+  order_id: Joi.number(),
   products: Joi.array()
     .items(
       Joi.object({
@@ -23,23 +23,33 @@ const createOrderJoiSchema = Joi.object({
     .required(),
 });
 
+const updateQuantityJoiSchema = Joi.object({
+  order_id: Joi.number().required(),
+  order_product_id: Joi.number().required(),
+  quantity: Joi.number().required(),
+});
+
 const getOrderJoiSchema = Joi.object({
   orderStatus: Joi.string().valid("in progress", "sent", "delivered"),
 });
 
 const removeJoiSchema = Joi.object({
-  productId: Joi.string().required(),
+  order_product_id: Joi.number().required(),
 });
+
 
 //.....................handling validate order....................................
 const addOrder = validateBody(createOrderJoiSchema);
 const getStatusOrder = validateBody(getOrderJoiSchema);
+const quantity = validateBody(updateQuantityJoiSchema);
 const remove = validateBody(removeJoiSchema);
+
 
 const orderJoiSchemas = {
   addOrder,
   getStatusOrder,
   remove,
+  quantity,
 };
 
 module.exports = {
