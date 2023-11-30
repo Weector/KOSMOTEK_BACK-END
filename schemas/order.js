@@ -29,10 +29,6 @@ const updateQuantityJoiSchema = Joi.object({
   quantity: Joi.number().required(),
 });
 
-const getOrderJoiSchema = Joi.object({
-  orderStatus: Joi.string().valid("in progress", "sent", "delivered"),
-});
-
 const removeJoiSchema = Joi.object({
   order_product_id: Joi.number().required(),
 });
@@ -40,14 +36,12 @@ const removeJoiSchema = Joi.object({
 
 //.....................handling validate order....................................
 const addOrder = validateBody(createOrderJoiSchema);
-const getStatusOrder = validateBody(getOrderJoiSchema);
 const quantity = validateBody(updateQuantityJoiSchema);
 const remove = validateBody(removeJoiSchema);
 
 
 const orderJoiSchemas = {
   addOrder,
-  getStatusOrder,
   remove,
   quantity,
 };

@@ -1,20 +1,21 @@
 const cron = require("node-cron");
 const moment = require("moment");
 const { updateUser, findUsers } = require("../services/user");
-const { findOrders } = require("../services/order");
 
 //...............birthday check for discount calculation......................
-cron.schedule("0 0 * * * ", async () => {
+cron.schedule("0 0 * * *", async () => {
+  const { order: ctrl } = require("../baseLinker");
+
   const users = await findUsers();
   const currentData = moment();
 
   for (const user of users) {
-    const userOrders = await findOrders({
-      userId: user._id,
-      orderStatus: "delivered",
+    const { orders } = await ctrl.getOrders({
+      filter_email: user.email,
+      status_id: 2923,
     });
 
-    if (userOrders.length > 0) {
+    if (orders.length > 0) {
       const birthdayData = moment(user.birthday, "DD-MM-YYYY");
       const oneMonthBeforeBirthday = moment(birthdayData).subtract(1, "months");
       const oneDayAfterBirthday = moment(birthdayData).add(1, "days");
