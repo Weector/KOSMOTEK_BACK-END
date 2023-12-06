@@ -13,6 +13,8 @@ const loginUser = async (req, res) => {
     phoneNumber,
     userDiscount,
     deliveryAddress,
+    deliveryCity,
+    pointPostcode,
     birthday,
   } = user;
 
@@ -30,6 +32,8 @@ const loginUser = async (req, res) => {
       phoneNumber,
       birthday,
       deliveryAddress,
+      deliveryCity,
+      pointPostcode,
       email,
       userDiscount,
     },

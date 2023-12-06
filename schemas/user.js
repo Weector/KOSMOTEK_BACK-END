@@ -27,6 +27,8 @@ const userJoiSchema = Joi.object({
   birthday: Joi.string(),
   phoneNumber: Joi.string(),
   deliveryAddress: Joi.string(),
+  deliveryCity: Joi.string(),
+  pointPostcode: Joi.string(),
   userDiscount: Joi.number(),
 });
 
@@ -40,7 +42,6 @@ const login = validateBody(
     firstname: Joi.forbidden(),
     secondname: Joi.forbidden(),
     phoneNumber: Joi.forbidden(),
-    deliveryAddress: Joi.forbidden(),
   })
 );
 

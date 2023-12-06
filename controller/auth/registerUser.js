@@ -21,6 +21,8 @@ const registerUser = async (req, res) => {
       phoneNumber,
       email,
       deliveryAddress: logUser.deliveryAddress,
+      deliveryCity: logUser.deliveryCity,
+      pointPostcode: logUser.pointPostcode,
       userDiscount: logUser.userDiscount,
     },
   });

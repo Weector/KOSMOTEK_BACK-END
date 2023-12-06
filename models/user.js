@@ -37,6 +37,14 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
+    deliveryCity: {
+      type: String,
+      default: null,
+    },
+    pointPostcode: {
+      type: String,
+      default: null,
+    },
     token: {
       type: String,
       default: null,
