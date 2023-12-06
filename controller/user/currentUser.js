@@ -6,6 +6,8 @@ const currentUser = async (req, res) => {
     phoneNumber,
     userDiscount,
     deliveryAddress,
+    deliveryCity,
+    pointPostcode,
     birthday,
   } = req.user;
 
@@ -18,6 +20,8 @@ const currentUser = async (req, res) => {
       birthday,
       userDiscount,
       deliveryAddress,
+      deliveryCity,
+      pointPostcode,
     },
   });
 };

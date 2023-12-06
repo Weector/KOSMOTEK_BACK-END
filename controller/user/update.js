@@ -39,9 +39,11 @@ const update = async (req, res) => {
     phoneNumber,
     userDiscount,
     deliveryAddress,
+    deliveryCity,
+    pointPostcode,
   } = user;
 
-  res.json({
+  res.status(200).json({
     status: "success",
     message: "User updated",
     user: {
@@ -52,6 +54,8 @@ const update = async (req, res) => {
       phoneNumber,
       userDiscount,
       deliveryAddress,
+      deliveryCity,
+      pointPostcode,
     },
   });
 };
