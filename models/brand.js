@@ -9,7 +9,7 @@ const brandSchema = Schema(
       required: [true, "Set baselinker man_name"],
     },
   },
-  { versionKey: false }
+  { versionKey: false, timestamps: true }
 );
 
 brandSchema.post("save", errorHandler);

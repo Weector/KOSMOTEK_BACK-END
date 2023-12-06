@@ -1,30 +1,29 @@
-const { NotFoundError } = require("../helpers/errors");
-const { getFullProductsDataFromBL } = require("./getProductsDataFromBL");
+const { NotFoundError } = require("../../helpers/errors");
+const { getBLProductsData } = require("./getBLProductsData");
 
 // Create an array of products to add in the product collection of database
-const createProductsToInsert = async () => {
+const createInsertProducts = async () => {
   try {
     // Get complete information about all products
-    const responseApi = await getFullProductsDataFromBL();
+    const responseApi = await getBLProductsData();
 
     if (!responseApi) {
       throw new NotFoundError("No products data from baselinker available");
     }
 
-    const productsBL = responseApi.products;
+    const blProductsData = responseApi.products;
 
     const productsToInsert = [];
 
     // Form the correct product object and push it to the productsToInsert array
-    for (const productId in productsBL) {
-      const product = productsBL[productId];
+    for (const productId in blProductsData) {
+      const product = blProductsData[productId];
 
       const {
         product_id,
         name,
         quantity,
         price_brutto,
-        price_wholesale_netto,
         category_id,
         man_name,
         images,
@@ -60,7 +59,6 @@ const createProductsToInsert = async () => {
         productName: name,
         quantity,
         price: price_brutto,
-        discountPrice: price_wholesale_netto,
         categoryId: category_id.toString(),
         brand: man_name,
         images,
@@ -79,4 +77,4 @@ const createProductsToInsert = async () => {
   }
 };
 
-module.exports = { createProductsToInsert };
+module.exports = { createInsertProducts };
