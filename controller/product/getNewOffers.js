@@ -4,7 +4,10 @@ const { NotFoundError } = require("../../helpers/errors");
 // Get new offers in product collection
 
 const getNewOffers = async (req, res) => {
-  const allNewProducts = await Product.find({ newOffer: true });
+  const allNewProducts = await Product.find(
+    { newOffer: true },
+    "-blProductId -createdAt -updatedAt"
+  );
 
   if (allNewProducts.length === 0) {
     throw new NotFoundError("There no new offers");

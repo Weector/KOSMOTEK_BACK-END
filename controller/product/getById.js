@@ -22,7 +22,10 @@ const getById = async (req, res) => {
     { $set: { quantity: blProductById.quantity } }
   );
 
-  const updatedProduct = await Product.findById(productId);
+  const updatedProduct = await Product.findById(
+    productId,
+    "-blProductId -createdAt -updatedAt"
+  );
 
   res.json({
     status: "success",
