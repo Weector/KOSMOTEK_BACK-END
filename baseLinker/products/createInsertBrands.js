@@ -1,9 +1,9 @@
-const { getFullProductsDataFromBL } = require("./getProductsDataFromBL");
-const { NotFoundError } = require("../helpers/errors");
+const { getBLProductsData } = require("./getBLProductsData");
+const { NotFoundError } = require("../../helpers/errors");
 
-const createBrandsToInsert = async () => {
+const createInsertBrands = async () => {
   try {
-    const productsResponseAPI = await getFullProductsDataFromBL();
+    const productsResponseAPI = await getBLProductsData();
 
     if (!productsResponseAPI) {
       throw new NotFoundError("No products data from baselinker available");
@@ -34,4 +34,4 @@ const createBrandsToInsert = async () => {
   }
 };
 
-module.exports = { createBrandsToInsert };
+module.exports = { createInsertBrands };

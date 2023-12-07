@@ -17,7 +17,7 @@ const categorySchema = Schema(
       required: [true, "Set baselinker parent_id"],
     },
   },
-  { versionKey: false }
+  { versionKey: false, timestamps: true }
 );
 
 categorySchema.post("save", errorHandler);
