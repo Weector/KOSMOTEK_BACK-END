@@ -61,7 +61,7 @@ const getBLProductById = async (id) => {
       throw new NotFoundError("No product by id from baselinker available");
     }
 
-    return products;
+    return products[id];
   } catch (error) {
     console.error(error.message);
   }
