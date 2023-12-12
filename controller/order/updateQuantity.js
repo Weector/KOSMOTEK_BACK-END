@@ -4,11 +4,14 @@ const { order: ctrl } = require("../../baseLinker");
 const updateQuantity = async (req, res) => {
   const { order_id, order_product_id, quantity } = req.body;
 
-  const newQuantity = await ctrl.setOrderProductFields({
-    order_id,
-    order_product_id,
-    quantity,
-  });
+  const newQuantity = await ctrl.modifyOrderInBaseLinker(
+    "setOrderProductFields",
+    {
+      order_id,
+      order_product_id,
+      quantity,
+    }
+  );
 
   res.status(200).json(newQuantity);
 };

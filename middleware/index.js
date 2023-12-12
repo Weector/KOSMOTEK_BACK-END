@@ -1,5 +1,5 @@
 const { errorHandler, ctrlWrapper } = require("./api");
-const { tokenMiddleware, passwordMW } = require("./user");
+const { tokenMiddleware, passwordMW, autoRegisterUser } = require("./user");
 const { tokenMiddlewareByOrder } = require("./order/tokenMiddlewareByOrder");
 
 module.exports = {
@@ -7,5 +7,6 @@ module.exports = {
   ctrlWrapper,
   tokenMiddleware,
   passwordMW,
+  autoRegisterUser,
   tokenMiddlewareByOrder,
 };
