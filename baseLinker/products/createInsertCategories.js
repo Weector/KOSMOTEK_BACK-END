@@ -1,17 +1,17 @@
 const {
-  getAllGategoriesFromBL,
+  getBLGategoriesList,
   getRequiredCategories,
-} = require("./getCategoriesListFromBL");
-const { NotFoundError } = require("../helpers/errors");
+} = require("./getBLCategories");
+const { NotFoundError } = require("../../helpers/errors");
 
 // Create an array of categories to add in the category collection of database
-const createCategoriesToInsert = async () => {
+const createInsertCategories = async () => {
   try {
     // Get an array of required category IDs and all available category IDs
     const requiredCategories = await getRequiredCategories();
 
     // Get an array all available category
-    const blCategoriesList = await getAllGategoriesFromBL();
+    const blCategoriesList = await getBLGategoriesList();
 
     if (!blCategoriesList) {
       throw new NotFoundError("No categories data from baselinker available");
@@ -43,4 +43,4 @@ const createCategoriesToInsert = async () => {
   }
 };
 
-module.exports = { createCategoriesToInsert };
+module.exports = { createInsertCategories };

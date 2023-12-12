@@ -19,3 +19,7 @@ mongoose
     console.log(error.message);
     process.exit(1);
   });
+
+// const { productsBL } = require("./baseLinker");
+
+// productsBL.schedulerUpdates();

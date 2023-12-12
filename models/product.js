@@ -18,11 +18,11 @@ const productSchema = Schema(
     },
     price: {
       type: Number,
-      required: [true, "Set baselinker price_brutto"],
+      required: [true, "Set baselinker price"],
     },
     discountPrice: {
       type: Number,
-      required: [true, "Set baselinker price_wholesale_netto"],
+      default: 0,
     },
     categoryId: {
       type: String,
@@ -65,7 +65,7 @@ const productSchema = Schema(
       default: null,
     },
   },
-  { versionKey: false }
+  { versionKey: false, timestamps: true }
 );
 
 productSchema.post("save", errorHandler);
