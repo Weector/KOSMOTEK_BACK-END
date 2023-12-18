@@ -1,6 +1,6 @@
 const { getOrders } = require("./getOrders");
 const { makeBaselinkerRequest } = require("../makeBaselinkerRequest");
-const { setOrderProductFields } = require("./setOrderProductFields");
+const { modifyOrderInBaseLinker } = require("./modifyOrderInBaseLinker");
 
 const addOrderProduct = async (params) => {
   const orderProduct = {
@@ -28,7 +28,7 @@ const addOrderProduct = async (params) => {
       quantity: orderProductIds[0].quantity + orderProduct.quantity,
     };
 
-    return await setOrderProductFields(udpateProduct);
+    return await modifyOrderInBaseLinker("setOrderProductFields", udpateProduct);
   } else {
     await makeBaselinkerRequest("addOrderProduct", orderProduct);
 

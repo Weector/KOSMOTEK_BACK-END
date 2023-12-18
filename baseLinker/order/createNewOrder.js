@@ -16,6 +16,7 @@ const createNewOrder = async (params, user) => {
       secondname,
       email,
       phoneNumber,
+      userDiscount,
     } = user;
 
     order.user_login = email;
@@ -31,6 +32,7 @@ const createNewOrder = async (params, user) => {
     order.invoice_address = deliveryAddress;
     order.invoice_city = deliveryCity;
     order.invoice_postcode = pointPostcode;
+    order.extra_field_1 = `Discount ${Number((userDiscount * 100).toFixed(0))}%`;
   }
 
   const { order_id } = await makeBaselinkerRequest("addOrder", order);
